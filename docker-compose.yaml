@@ -1,0 +1,19 @@
+services:
+  frontend:
+    image: 837564895422.dkr.ecr.ap-south-1.amazonaws.com/frontend-app:latest
+    env_file:
+      - frontend/.env
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  backend:
+    image: 837564895422.dkr.ecr.ap-south-1.amazonaws.com/backend-node:latest
+    ports:
+      - "4000:80"
+    env_file:
+      - backend/.env
+    restart: unless-stopped
+
