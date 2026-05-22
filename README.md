@@ -2,13 +2,15 @@
 
 A complete production-style deployment of a MERN Stack Food Delivery Application using Docker, Amazon ECS with self managed ec2 instances (EC2 Launch Type), Amazon ECR, Application Load Balancer, VPC ,IAM ROLES and MongoDB Atlas.
 
-📌 Project Overview
+**📌 Project Overview**
 
 This project demonstrates how to deploy a containerized MERN application on AWS using ECS with EC2 launch type.
 
-Tech Stack
+**Tech Stack**
 Frontend
+
 React.js
+
 Backend
 Node.js
 Express.js
@@ -110,7 +112,7 @@ Target Type	Instance
 
 Health checks configured successfully.
 
-🍃** MongoDB Atlas Configuration**
+*** MongoDB Atlas Configuration****
 
 Connected backend to MongoDB Atlas.
 
