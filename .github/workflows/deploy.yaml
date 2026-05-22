@@ -1,7 +1,7 @@
 name: MERN App ECS Deployment
 
 on:
-  push:
+   workflow_dispatch::
     branches:
       - main
 
