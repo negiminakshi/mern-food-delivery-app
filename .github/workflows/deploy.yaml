@@ -1,4 +1,4 @@
-name: MERN App Deployment
+name: MERN App ECS Deployment
 
 on:
   push:
@@ -23,6 +23,7 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
+      # FRONTEND
       - name: Build Frontend Image
         run: |
           docker build -t frontend-app ./frontend
@@ -32,6 +33,7 @@ jobs:
         run: |
           docker push 837564895422.dkr.ecr.ap-south-1.amazonaws.com/frontend-app:latest
 
+      # BACKEND
       - name: Build Backend Image
         run: |
           docker build -t backend-node ./backend
@@ -41,17 +43,10 @@ jobs:
         run: |
           docker push 837564895422.dkr.ecr.ap-south-1.amazonaws.com/backend-node:latest
 
-      - name: Deploy on EC2
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd ~/mern-food-delivery-app
-
-            aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 837564895422.dkr.ecr.ap-south-1.amazonaws.com
-
-            docker compose pull
-            docker compose down
-            docker compose up -d
+      # FORCE NEW ECS DEPLOYMENT
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service \
+            --cluster <cluster-name> \
+            --service <cluster-service> \
+            --force-new-deployment
